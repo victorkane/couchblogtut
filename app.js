@@ -5,8 +5,6 @@
 
 var express = require('express');
 
-var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
-
 var app = module.exports = express.createServer();
 
 // Configuration
@@ -19,6 +17,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  app.use(express.compiler({ src: __dirname + '/views', enable: ['sass'] }));
 });
 
 app.configure('development', function(){
@@ -29,6 +28,7 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
 var articleProvider = new ArticleProvider();
 
 // Routes
@@ -41,8 +41,17 @@ var articleProvider = new ArticleProvider();
 
 app.get('/', function(req, res){
   articleProvider.findAll(function(error, docs){
-    res.send(require('sys').inspect(docs));
+    res.render('index.jade', {
+      locals: {
+        title: 'Blog',
+        articles: docs
+      }
+    });
   })
+});
+
+app.get('/*.css', function(req,res){
+  res.render(req.params[0] + '.css.sass', { layout: false });
 });
 
 app.listen(3000);
