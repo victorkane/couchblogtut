@@ -17,7 +17,6 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-  app.use(express.compiler({ src: __dirname + '/views', enable: ['sass'] }));
 });
 
 app.configure('development', function(){
@@ -48,10 +47,6 @@ app.get('/', function(req, res){
       }
     });
   })
-});
-
-app.get('/*.css', function(req,res){
-  res.render(req.params[0] + '.css.sass', { layout: false });
 });
 
 app.listen(3000);
