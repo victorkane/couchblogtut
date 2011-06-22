@@ -27,8 +27,8 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
-var articleProvider = new ArticleProvider();
+var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
+var articleProvider = new ArticleProvider('localhost', 27017);
 
 // Routes
 
