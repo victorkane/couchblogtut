@@ -27,16 +27,8 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
+var ArticleProvider = require('./articleprovider-couchdb').ArticleProvider;
 var articleProvider = new ArticleProvider();
-
-// Routes
-
-//app.get('/', function(req, res){
-//  res.render('index', {
-//    title: 'CouchBlog'
-//  });
-//});
 
 app.get('/', function(req, res){
   articleProvider.findAll(function(error, docs){
@@ -63,6 +55,18 @@ app.post('/blog/new', function(req,res){
     body: req.param('body')
   }, function(error, docs) {
     res.redirect('/')
+  });
+});
+
+app.get('/blog/view/:id', function(req,res){
+  articleProvider.findById(req.params.id,
+    function(error, doc){
+      res.render('blog_view', {
+      locals: {
+        title: 'New Post',
+        article: doc
+      }
+	});
   });
 });
 

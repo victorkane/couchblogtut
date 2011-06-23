@@ -3,5 +3,9 @@ h1= title
   - each article in articles
     div.article
       div.created_at= article.created_at
-      div.title= article.title
+      - var articlelink = 'blog/view/' + article._id;
+      a(href=articlelink)
+        div.title= article.title
       div.body!= article.body
+  a(href='blog/new')
+    Add new post
