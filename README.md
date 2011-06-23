@@ -6,4 +6,4 @@ The second, [Blog rolling with CouchDB, Express and Node.js](http://www.ianwoott
 
 This pedagogical repo brings it up to date (as of June 22, 2011), makes a MongoDB branch basing the persistence on MongoDB; and a CouchDB branch (ultimately merged into Master) after the more recent article.
 
-Further comments and background can be found on [my blogpost covering this repo](http://awebfactory.com.ar/node/500). 
+Further comments and background can be found on [my blogpost covering this repo](http://awebfactory.com.ar/node/475). 
